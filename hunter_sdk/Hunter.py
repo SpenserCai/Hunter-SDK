@@ -3,7 +3,7 @@ Author: 饕餮
 Date: 2022-01-21 10:37:56
 version: 
 LastEditors: 饕餮
-LastEditTime: 2022-01-21 11:32:45
+LastEditTime: 2022-01-21 11:55:17
 Description: file content
 '''
 import json
@@ -20,6 +20,6 @@ class Hunter:
             self.hunterApi = HunterApi(_username,_apikey)
 
     def Search(self,queryStr,page=1,page_size=10,days=30):
-        responseData = self.hunterApi(queryStr,page,page_size,days)
+        responseData = self.hunterApi.GetData(queryStr,page,page_size,days)
         hunterObject = HunterObject(responseData)
         return hunterObject

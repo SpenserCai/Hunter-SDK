@@ -3,9 +3,10 @@ Author: 饕餮
 Date: 2021-11-17 13:53:52
 version: 
 LastEditors: 饕餮
-LastEditTime: 2022-01-21 11:32:43
+LastEditTime: 2022-01-21 12:03:17
 Description: file content
 '''
+from typing import List
 from hunter_sdk.Common.BaseObject import *
 
 class HunterListItem(BaseObject):
@@ -129,7 +130,7 @@ class HunterObject(BaseObject):
         return self.TryGetValue("data.is_web")
 
     @property
-    def List(self):
+    def HunterList(self) -> List[HunterListItem]:
         returnList = []
         tmpList = self.TryGetValue("data.arr")
         for item in tmpList:

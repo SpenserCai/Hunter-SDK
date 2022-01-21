@@ -3,11 +3,11 @@ Author: 饕餮
 Date: 2022-01-21 10:37:56
 version: 
 LastEditors: 饕餮
-LastEditTime: 2022-01-21 15:37:17
+LastEditTime: 2022-01-21 18:04:17
 Description: file content
 '''
 import json
-from hunter_sdk.Common.HunterObject import HunterObject
+from hunter_sdk.Common.HunterObject import HunterError, HunterObject
 from hunter_sdk.HunterApi import HunterApi
 
 class Hunter:
@@ -22,6 +22,9 @@ class Hunter:
     def Search(self,queryStr,page=1,page_size=10,days=30):
         responseData = self.hunterApi.GetData(queryStr,page,page_size,days)
         hunterObject = HunterObject(responseData)
+        if hunterObject.Code != 200:
+            errorObject = HunterError(responseData)
+            return errorObject
         self.NowPage = page
         self._usePageSize = page_size
         self._useQuery = queryStr

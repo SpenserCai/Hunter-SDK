@@ -3,14 +3,27 @@ Author: 饕餮
 Date: 2021-11-17 13:53:52
 version: 
 LastEditors: 饕餮
-LastEditTime: 2022-01-21 12:03:17
+LastEditTime: 2022-01-21 18:30:58
 Description: file content
 '''
 from typing import List
 from hunter_sdk.Common.BaseObject import *
 
+class HunterError(BaseObject):
+    def __init__(self,jsonData):
+        self.ObjectData = jsonData
+
+    @property
+    def ErrorCode(self):
+        return self.TryGetValue("code")
+
+    @property
+    def ErrorMessage(self):
+        return self.TryGetValue("message")
+
+
 class HunterListItem(BaseObject):
-    def __init__(self,jsonData={}):
+    def __init__(self,jsonData):
         self.ObjectData = jsonData
 
     @property

@@ -3,7 +3,7 @@ Author: 饕餮
 Date: 2022-01-21 10:37:56
 version: 
 LastEditors: 饕餮
-LastEditTime: 2022-01-21 11:55:17
+LastEditTime: 2022-01-21 15:37:17
 Description: file content
 '''
 import json
@@ -22,4 +22,21 @@ class Hunter:
     def Search(self,queryStr,page=1,page_size=10,days=30):
         responseData = self.hunterApi.GetData(queryStr,page,page_size,days)
         hunterObject = HunterObject(responseData)
+        self.NowPage = page
+        self._usePageSize = page_size
+        self._useQuery = queryStr
+        self._useDays = days
+        self.TotalPage = int(hunterObject.Total / 10)
+        if self.TotalPage > 10000: 
+            self.TotalPage = 10000
         return hunterObject
+
+    def Next(self,page_number=1):
+        page = self.NowPage + page_number
+        if page > self.TotalPage: page = self.TotalPage
+        return self.Search(self._useQuery,page,self._usePageSize,self._useDays)
+
+    def Last(self,page_number=1):
+        page = self.NowPage - page_number
+        if page < 1: page = 1
+        return self.Search(self._useQuery,page,self._usePageSize,self._useDays)
